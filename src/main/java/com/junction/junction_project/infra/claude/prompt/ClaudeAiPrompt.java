@@ -2,6 +2,7 @@ package com.junction.junction_project.infra.claude.prompt;
 
 import com.junction.junction_project.domain.SafetyAssessment.dto.SafetyAssessmentRequest;
 import com.junction.junction_project.domain.checklist.dto.AddressesWithInfoDTO;
+import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Getter;
 
@@ -135,7 +136,7 @@ public class ClaudeAiPrompt {
                        - Fewer workers = higher risk, apply larger deductions.
                 
                      2. Safety checklist: [Category / Item / true or false]
-                       - true = compliant, no deduction\s
+                       - true = compliant, no deduction
                        - false = non-compliant, apply deduction (critical items = higher penalty)
                 
                      [Scoring Rules]
@@ -166,5 +167,33 @@ public class ClaudeAiPrompt {
             
             
             """.formatted(safetyAssessmentRequest.getNumOfWorkers(), safetyAssessmentRequest.getAddressInfoList());
+    }
+
+    public static String GRAPH_ANALYZE(List<String> safetyAssessmentIssues, List<Long> riskScore) {
+        StringBuilder issuesData = new StringBuilder();
+        for (int i = 0; i < safetyAssessmentIssues.size(); i++) {
+            issuesData.append("Day ").append(i + 1).append(": ").append(safetyAssessmentIssues.get(i)).append("\n");
+        }
+
+        StringBuilder riskData = new StringBuilder();
+        for (int i = 0; i < riskScore.size(); i++) {
+            riskData.append("Day ").append(i + 1).append(": ").append(riskScore.get(i)).append("%%\n");
+        }
+
+        return """
+            You are a construction site safety pattern analyzer.
+                 Analyze the last 7 daily safety assessments to identify trends.
+            
+                 [Input Data]
+                 Risk Scores : %s
+                 Safety Issues : %s
+            
+                 CRITICAL: Return ONLY 3 short sentences. No headers, no bullet points, no explanations.
+            
+                 Example format:
+                 Risk fluctuates between 14-22 percent. Repeated helmet violations indicate persistent compliance issues. Same safety problems recur weekly without resolution.
+            
+                 Your 3-sentence analysis:
+       """.formatted(riskData.toString(), issuesData.toString());
     }
 }
