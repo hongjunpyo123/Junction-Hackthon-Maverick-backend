@@ -12,6 +12,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Tag(name = "현장 주소 조회, 추가 api 입니다 api", description = "")
 public interface AddressesApiDocumentation {
@@ -43,8 +44,8 @@ public interface AddressesApiDocumentation {
           )
       )
   )
-  @Operation(summary = "등록된 현장 모두 조회 api 입니다.", description = "")
-  public ResponseEntity<?> getAddresses();
+  @Operation(summary = "현장 주소 조회 api 입니다. (검색기능 추가)", description = "")
+  ResponseEntity<?> getAddresses(@RequestParam(required = false) String keyword);
 
 
   @ApiResponse(
@@ -72,5 +73,5 @@ public interface AddressesApiDocumentation {
       )
   )
   @Operation(summary = "현장 주소 등록 api 입니다.", description = "")
-  public ResponseEntity<?> addAddress(AddressesRequest request, BindingResult bindingResult);
+  ResponseEntity<?> addAddress(AddressesRequest request, BindingResult bindingResult);
 }

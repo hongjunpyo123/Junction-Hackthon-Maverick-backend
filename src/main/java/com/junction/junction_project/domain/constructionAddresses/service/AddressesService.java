@@ -22,8 +22,8 @@ public class AddressesService {
   private final AddressesInfoRepository addressesInfoRepository;
 
   @Transactional(readOnly = true)
-  public List<AddressesResponse> getAddresses() {
-    List<Addresses> addresses = addressesRepository.findAll();
+  public List<AddressesResponse> getAddresses(String keyword) {
+    List<Addresses> addresses = addressesRepository.findByKeyword(keyword);
 
 
     return addresses.stream().map(a -> {
