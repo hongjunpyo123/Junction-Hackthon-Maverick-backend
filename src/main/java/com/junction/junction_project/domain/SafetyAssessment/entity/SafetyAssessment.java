@@ -17,6 +17,9 @@ public class SafetyAssessment {
   @Id @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
   private Long id;
 
-
+  private Long safetyScore;
+  private Long riskScore;
+  private String englishAddress;
+  private String issues;
 
 }

@@ -1,5 +1,6 @@
 package com.junction.junction_project.infra.claude.prompt;
 
+import com.junction.junction_project.domain.SafetyAssessment.dto.SafetyAssessmentRequest;
 import com.junction.junction_project.domain.checklist.dto.AddressesWithInfoDTO;
 import java.util.stream.Collectors;
 import lombok.Getter;
@@ -122,5 +123,48 @@ public class ClaudeAiPrompt {
             addressesWithInfoDTO.getTotalNumOfHouseholds(), addressesWithInfoDTO.getPrimaryStructure(),
             addressesWithInfoDTO.getRoofStructure(), addressesWithInfoDTO.getFARCalculationFloorArea());
 
+    }
+
+    public static String SAFETY_ASSESSMENT(SafetyAssessmentRequest safetyAssessmentRequest) {
+        return
+            """
+                 You are an AI safety assessor for construction sites.
+                     Based on the inputs below, calculate the Safety Score (0–100) and Risk Level () for the site. 
+                
+                     1. Number of workers: {≤10 / ≤30 / ≤50}
+                       - Fewer workers = higher risk, apply larger deductions.
+                
+                     2. Safety checklist: [Category / Item / true or false]
+                       - true = compliant, no deduction\s
+                       - false = non-compliant, apply deduction (critical items = higher penalty)
+                
+                     [Scoring Rules]
+                     - Base score: 100
+                     - Worker count: ≤10 = -20, ≤30 = -10, ≤50 = -5
+                     - Each "false" response deducts points based on category weight
+                     - Safety Score = 100 - total deductions
+                     - Risk Level () = 100 - Safety Score
+                
+                     [input data]
+                     - Number of workers : %d
+                     - Checklist Information : %s
+                
+                     [Output Format]
+                     Provide your assessment in JSON format only:
+                     {
+                      "safetyScore": [0-100 integer],
+                      "riskScore": [0-100 integer],
+                      "issues": "[summary of non-compliant items or 'No safety violations identified']"
+                     }
+                
+                     Requirements:
+                     - Always respond in English
+                     - safetyScore + riskScore must equal 100
+                     - Summarize all "false" responses in the issues field as one sentence
+                     - IMPORTANT: Return only raw JSON without any markdown formatting, backticks, or code blocks
+                     - Do not use ``` or ```json in your response
+            
+            
+            """.formatted(safetyAssessmentRequest.getNumOfWorkers(), safetyAssessmentRequest.getAddressInfoList());
     }
 }
