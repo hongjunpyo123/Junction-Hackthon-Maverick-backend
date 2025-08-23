@@ -100,6 +100,8 @@ public class ClaudeAiPrompt {
              }
             ]
             
+            **Remember: Use ONLY English language in your response. No Korean text allowed.**
+            
             Now analyze the following building data and generate an appropriate safety checklist:
             
             

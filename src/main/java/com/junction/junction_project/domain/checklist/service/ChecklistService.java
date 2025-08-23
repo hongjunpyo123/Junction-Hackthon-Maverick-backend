@@ -10,6 +10,8 @@ import com.junction.junction_project.domain.constructionAddresses.entity.Address
 import com.junction.junction_project.domain.constructionAddresses.repository.AddressesInfoRepository;
 import com.junction.junction_project.domain.constructionAddresses.repository.AddressesRepository;
 import com.junction.junction_project.global.common.dto.response.ResponseDTO;
+import com.junction.junction_project.global.exception.ErrorCode;
+import com.junction.junction_project.global.exception.NotFoundInfoException;
 import com.junction.junction_project.infra.OCR.dto.OCRResponseDTO;
 import com.junction.junction_project.infra.claude.ClaudeAiClient;
 import com.junction.junction_project.infra.claude.prompt.ClaudeAiPrompt;
@@ -35,6 +37,13 @@ public class ChecklistService {
   private final AddressesRepository addressesRepository;
 
     public List<ChecklistGenerateResponseDTO> generateCheckList(@RequestBody ChecklistRequestDTO request) {
+
+      if(!addressesRepository.findById(request.getAddressId()).isPresent()) {
+
+        log.error("id : " + request.getAddressId() + " 해당 건설 현장 정보가 존재하지 않습니다.");
+        throw new NotFoundInfoException(ErrorCode.NOT_FOUND);
+      }
+
       Addresses addresses = addressesRepository.findById(request.getAddressId()).orElse(null);
       AddressesInfo addressesInfo = addresses.getAddressesInfo();
 
