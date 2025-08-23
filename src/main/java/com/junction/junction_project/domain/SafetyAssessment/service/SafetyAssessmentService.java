@@ -50,7 +50,7 @@ public class SafetyAssessmentService {
       safetyAssessment.setSafetyScore(safetyAiResponse.getSafetyScore());
       safetyAssessment.setRiskScore(safetyAiResponse.getRiskScore());
       safetyAssessment.setIssues(safetyAiResponse.getIssues());
-      safetyAssessment.setEnglishAddress(safetyAssessment2.getEnglishAddress());
+      safetyAssessment.setEnglishAddress(safetyAssessment2.getEnglishLotAddress());
 
       safetyAssessmentRepository.save(safetyAssessment);
 
@@ -58,7 +58,7 @@ public class SafetyAssessmentService {
       SafetyAssessmentResponse safetyAssessmentResponse = new SafetyAssessmentResponse();
       safetyAssessmentResponse.setSafetyScore(safetyAiResponse.getSafetyScore());
       safetyAssessmentResponse.setRiskScore(safetyAiResponse.getRiskScore());
-      safetyAssessmentResponse.setEnglishAddress(safetyAssessment2.getEnglishAddress());
+      safetyAssessmentResponse.setEnglishAddress(safetyAssessment2.getEnglishLotAddress());
       safetyAssessmentResponse.setSubmitStatus(SubmitStatus.PENDING);
 
       return safetyAssessmentResponse;
