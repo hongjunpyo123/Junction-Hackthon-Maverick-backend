@@ -25,12 +25,13 @@ public class AddressesService {
   public List<AddressesResponse> getAddresses() {
     List<Addresses> addresses = addressesRepository.findAll();
 
+
     return addresses.stream().map(a -> {
       AddressesResponse response = new AddressesResponse();
       response.setAddressId(a.getId());
       response.setKoreanAddress(a.getKoreanAddress());
-      response.setEnglishStreetAddress(response.getEnglishStreetAddress());
-      response.setEnglishLotAddress(response.getEnglishLotAddress());
+      response.setEnglishStreetAddress(a.getEnglishStreetAddress());
+      response.setEnglishLotAddress(a.getEnglishLotAddress());
       return response;
     }).toList();
   }
