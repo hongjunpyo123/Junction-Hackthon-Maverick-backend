@@ -6,6 +6,7 @@ import com.junction.junction_project.domain.graph.dto.GraphAnalyzeAiResponse;
 import com.junction.junction_project.domain.graph.dto.GraphAnalyzeResponse;
 import com.junction.junction_project.domain.graph.service.GraphService;
 import com.junction.junction_project.global.common.dto.response.ResponseDTO;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,7 @@ public class GraphController {
     GraphAnalyzeAiResponse response = graphService.graphAnalyze();
     return ResponseEntity.status(HttpStatus.OK).body(ResponseDTO.of(response, "그래프 추이 분석에 성공하였습니다."));
   }
+
 
   @GetMapping("/weekly-analysis")
   public ResponseEntity<?> getWeeklyAnalysis() {
