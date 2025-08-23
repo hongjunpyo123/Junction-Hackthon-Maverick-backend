@@ -24,6 +24,7 @@ public class AddressesService {
 
     return addresses.stream().map(a -> {
       AddressesResponse response = new AddressesResponse();
+      response.setId(a.getId());
       response.setKoreanAddress(a.getKoreanAddress());
       response.setEnglishAddress(a.getEnglishAddress());
       return response;
