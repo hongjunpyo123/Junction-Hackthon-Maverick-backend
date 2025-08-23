@@ -1,7 +1,10 @@
 package com.junction.junction_project.domain.graph.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.junction.junction_project.domain.SafetyAssessment.dto.SafetyAiResponse;
 import com.junction.junction_project.domain.SafetyAssessment.entity.SafetyAssessment;
 import com.junction.junction_project.domain.SafetyAssessment.repository.SafetyAssessmentRepository;
+import com.junction.junction_project.domain.graph.dto.GraphAnalyzeAiParseDTO;
 import com.junction.junction_project.domain.graph.dto.GraphAnalyzeAiResponse;
 import com.junction.junction_project.domain.graph.dto.GraphAnalyzeResponse;
 import com.junction.junction_project.infra.claude.ClaudeAiClient;
@@ -21,7 +24,7 @@ public class GraphService {
   private final ClaudeAiClient claudeAiClient;
   private final SafetyAssessmentRepository safetyAssessmentRepository;
 
-  public GraphAnalyzeAiResponse graphAnalyze() {
+  public GraphAnalyzeAiParseDTO graphAnalyze() {
     List<SafetyAssessment> safetyAssessments = safetyAssessmentRepository.findAll();
     List<String> safetyAssessmentIssues = safetyAssessments.stream()
         .map(SafetyAssessment::getIssues).toList();
@@ -29,18 +32,26 @@ public class GraphService {
     List<Long> riskScore = safetyAssessments.stream()
         .map(SafetyAssessment::getRiskScore).toList();
 
+    System.out.println("graphAnalyze input prompt = " + ClaudeAiPrompt.GRAPH_ANALYZE(safetyAssessmentIssues, riskScore));
     String response = claudeAiClient.call(claudeAiClient.call(ClaudeAiPrompt.GRAPH_ANALYZE(safetyAssessmentIssues, riskScore)));
+
     log.info("AI response: {}", response);
 
-    GraphAnalyzeAiResponse graphAnalyzeAiResponse = GraphAnalyzeAiResponse.builder()
-        .graphAnalyzeResult(response)
-        .build();
-
-    return graphAnalyzeAiResponse;
+    GraphAnalyzeAiParseDTO graphAnalyzeAiParseDTO = parseJsonToList(response);
 
 
 
+    return graphAnalyzeAiParseDTO;
+  }
 
+
+  private GraphAnalyzeAiParseDTO parseJsonToList(String checkListTextJson) {
+    try {
+      ObjectMapper mapper = new ObjectMapper();
+      return mapper.readValue(checkListTextJson, GraphAnalyzeAiParseDTO.class);
+    } catch (Exception e) {
+      throw new RuntimeException("JSON 파싱 오류: " + e.getMessage(), e);
+    }
   }
 
 

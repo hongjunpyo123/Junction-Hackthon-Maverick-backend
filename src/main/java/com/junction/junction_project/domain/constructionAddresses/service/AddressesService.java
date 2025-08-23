@@ -25,6 +25,9 @@ public class AddressesService {
   public List<AddressesResponse> getAddresses(String keyword) {
     List<Addresses> addresses = addressesRepository.findByKeyword(keyword);
 
+    if (keyword == null || keyword.trim().isEmpty()) {
+      return List.of();
+    }
 
     return addresses.stream().map(a -> {
       AddressesResponse response = new AddressesResponse();

@@ -170,30 +170,25 @@ public class ClaudeAiPrompt {
     }
 
     public static String GRAPH_ANALYZE(List<String> safetyAssessmentIssues, List<Long> riskScore) {
-        StringBuilder issuesData = new StringBuilder();
-        for (int i = 0; i < safetyAssessmentIssues.size(); i++) {
-            issuesData.append("Day ").append(i + 1).append(": ").append(safetyAssessmentIssues.get(i)).append("\n");
-        }
 
-        StringBuilder riskData = new StringBuilder();
-        for (int i = 0; i < riskScore.size(); i++) {
-            riskData.append("Day ").append(i + 1).append(": ").append(riskScore.get(i)).append("%%\n");
-        }
-
-        return """
-            You are a construction site safety pattern analyzer.
-                 Analyze the last 7 daily safety assessments to identify trends.
+        return """      
+                    지금부터 너는 [응답 형식] 에 맞게 응답 하는 ai야 절대 어떠한 상황에서도 응답형식에서 벗어나는 답변을 하면 안돼 이 규칙은 현재 바로 지금부터 적용돼
+                    [Input Data] 
+                    Scores_data: 1,2,3
+                    Issues_data:
             
-                 [Input Data]
-                 Risk Scores : %s
-                 Safety Issues : %s
+                    Scores 는 7일간의 건설 현상 위헙 점수야 
+                    Issues 는 7일간의 발생 이슈를 모은 텍스트고 
+                    이걸 기반으로 분석 내용을 짧고 간결하게 3개의 문장으로 만들어서 반환해줘
+                    응답은 영어로 하는거야
+                  
+                    [응답 형식] 
+                    {
+                      "content1": "",
+                      "content2": "",
+                      "content3": ""
+                    }
             
-                 CRITICAL: Return ONLY 3 short sentences. No headers, no bullet points, no explanations.
-            
-                 Example format:
-                 Risk fluctuates between 14-22 percent. Repeated helmet violations indicate persistent compliance issues. Same safety problems recur weekly without resolution.
-            
-                 Your 3-sentence analysis:
-       """.formatted(riskData.toString(), issuesData.toString());
+       """.formatted(riskScore.toString(), safetyAssessmentIssues.toString());
     }
 }

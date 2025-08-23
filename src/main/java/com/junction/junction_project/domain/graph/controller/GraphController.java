@@ -2,6 +2,7 @@ package com.junction.junction_project.domain.graph.controller;
 
 import com.junction.junction_project.domain.SafetyAssessment.entity.SafetyAssessment;
 import com.junction.junction_project.domain.SafetyAssessment.repository.SafetyAssessmentRepository;
+import com.junction.junction_project.domain.graph.dto.GraphAnalyzeAiParseDTO;
 import com.junction.junction_project.domain.graph.dto.GraphAnalyzeAiResponse;
 import com.junction.junction_project.domain.graph.dto.GraphAnalyzeResponse;
 import com.junction.junction_project.domain.graph.service.GraphService;
@@ -28,7 +29,7 @@ public class GraphController {
 
   @GetMapping("/analyze")
   public ResponseEntity<?> graphAnalyze() {
-    GraphAnalyzeAiResponse response = graphService.graphAnalyze();
+    GraphAnalyzeAiParseDTO response = graphService.graphAnalyze();
     return ResponseEntity.status(HttpStatus.OK).body(ResponseDTO.of(response, "그래프 추이 분석에 성공하였습니다."));
   }
 
