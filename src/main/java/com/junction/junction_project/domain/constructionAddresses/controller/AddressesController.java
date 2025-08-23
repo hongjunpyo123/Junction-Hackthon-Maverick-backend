@@ -4,7 +4,6 @@ import com.junction.junction_project.domain.constructionAddresses.docs.Addresses
 import com.junction.junction_project.domain.constructionAddresses.dto.AddressesRequest;
 import com.junction.junction_project.domain.constructionAddresses.dto.AddressesResponse;
 import com.junction.junction_project.domain.constructionAddresses.service.AddressesService;
-import com.junction.junction_project.global.common.dto.response.ListResponseDTO;
 import com.junction.junction_project.global.common.dto.response.ResponseDTO;
 import com.junction.junction_project.global.exception.ErrorCode;
 import com.junction.junction_project.global.exception.InvalidValueException;
@@ -32,8 +31,7 @@ public class AddressesController implements AddressesApiDocumentation {
   @GetMapping
   public ResponseEntity<?> getAddresses() {
     List<AddressesResponse> addressesRequests =  addressesService.getAddresses();
-    ListResponseDTO listResponseDTO = ListResponseDTO.of(addressesRequests);
-    return ResponseEntity.status(HttpStatus.OK).body(ResponseDTO.of(listResponseDTO, "등록된 건설 현장 주소 조회 성공"));
+    return ResponseEntity.status(HttpStatus.OK).body(ResponseDTO.of(addressesRequests, "등록된 건설 현장 주소 조회 성공"));
   }
 
   @PostMapping
