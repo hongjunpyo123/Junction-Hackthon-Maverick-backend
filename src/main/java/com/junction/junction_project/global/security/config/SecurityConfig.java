@@ -1,7 +1,7 @@
 package com.junction.junction_project.global.security.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.junction.junction_project.global.common.dto.response.ErrorResponse;
+import com.junction.junction_project.global.common.dto.response.ResponseDTO;
 import com.junction.junction_project.global.exception.ErrorCode;
 import com.junction.junction_project.global.security.jwt.JwtTokenFilter;
 import lombok.RequiredArgsConstructor;
@@ -36,11 +36,11 @@ public class SecurityConfig {
 
     // 인증 실패 시 반환할 JSON 응답
     String invalidAuthenticationResponse = objectMapper
-        .writeValueAsString(ErrorResponse.of(ErrorCode.TOKEN_INVALID));
+        .writeValueAsString(ResponseDTO.of(ErrorCode.TOKEN_INVALID));
 
     // 인가 실패 시 반환할 JSON 응답
     String invalidAuthorizationResponse = objectMapper
-        .writeValueAsString(ErrorResponse.of(ErrorCode.ACCESS_DENIED));
+        .writeValueAsString(ResponseDTO.of(ErrorCode.ACCESS_DENIED));
 
     http
         .csrf(csrf -> csrf.disable())
@@ -50,9 +50,7 @@ public class SecurityConfig {
             .requestMatchers(
                 "/swagger-ui/**",
                 "/v3/api-docs/**",
-                "/test/**",
-                "/admin/**",
-                "/api/v1/auth/social"
+                "/api/**"
             ).permitAll()
             .anyRequest().authenticated())
         .exceptionHandling(e -> e

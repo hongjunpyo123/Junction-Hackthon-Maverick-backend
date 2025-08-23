@@ -38,7 +38,7 @@ public class SwaggerConfig {
         .servers(
             List.of(
                 new Server().url("http://localhost:8080").description("개발환경"),
-                new Server().url("https://api.maverick.store").description("운영환경")
+                new Server().url("https://api.junction-maverick.store").description("운영환경")
             )
         )
         .addSecurityItem(new SecurityRequirement().addList("bearerAuth"));

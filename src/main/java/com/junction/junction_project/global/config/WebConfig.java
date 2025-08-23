@@ -15,7 +15,8 @@ public class WebConfig implements WebMvcConfigurer {
                 "http://localhost:5173",
                 "https://api.junction-maverick.store",
                 "https://www.junction-maverick.store",
-                "https://junction-maverick.store"
+                "https://junction-maverick.store",
+                "https://junction-hackathon-maverick-fronten.vercel.app"
             )
                 .allowCredentials(true)
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")

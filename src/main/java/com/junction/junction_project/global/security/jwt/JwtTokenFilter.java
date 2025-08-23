@@ -2,7 +2,7 @@ package com.junction.junction_project.global.security.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.junction.junction_project.domain.user.exception.CustomUserNotFoundException;
-import com.junction.junction_project.global.common.dto.response.ErrorResponse;
+import com.junction.junction_project.global.common.dto.response.ResponseDTO;
 import com.junction.junction_project.global.common.threadlocal.threadlocal.TraceIdHolder;
 import com.junction.junction_project.global.exception.ErrorCode;
 import com.junction.junction_project.global.security.core.CustomUserDetailsService;
@@ -90,7 +90,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
       // 유저가 존재하지 않을 경우 반환되는 json 응답.
       String userNotFoundExceptionResponse = objectMapper
-          .writeValueAsString(ErrorResponse.of(ErrorCode.USER_NOT_FOUND));
+          .writeValueAsString(ResponseDTO.of(ErrorCode.USER_NOT_FOUND));
       response.setStatus(ErrorCode.USER_NOT_FOUND.getHttpStatus().value());
       response.setContentType("application/json");
       response.getWriter().write(userNotFoundExceptionResponse);
