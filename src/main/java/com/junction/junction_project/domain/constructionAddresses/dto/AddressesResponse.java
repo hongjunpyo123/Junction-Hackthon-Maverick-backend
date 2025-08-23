@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Getter
 @Setter
 public class AddressesResponse {
-  private Long id;
+  private Long addressId;
   private String koreanAddress;
   private String englishAddress;
 
