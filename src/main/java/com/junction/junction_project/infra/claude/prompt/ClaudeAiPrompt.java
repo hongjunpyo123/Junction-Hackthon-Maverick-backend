@@ -36,46 +36,57 @@ public class ClaudeAiPrompt {
             
             You are a construction safety expert specializing in Korean building regulations and safety management. Your task is to generate a safety checklist for construction sites based on provided building permit data.
             
-            ## Base Safety Categories and Mandatory Requirements:
+            Based on the following regulations:
+            - Rules on Occupational Safety and Health Standards
+            - Enforcement Decree of the Construction Technology Promotion Act
+            - Enforcement Decree of the Serious Accidents Punishment Act
             
-            ### 1. Personal Protective Equipment (PPE)
-            - Mandatory for ALL construction sites regardless of type
-            - Must include: hard hats, safety shoes, safety harnesses, protective clothing
+            The following mandatory inspection items are required. When generating the checklist, you must include these items.
             
-            ### 2. Fall Prevention (High-rise Work)
-            - Required when building height exceeds 2 floors OR total households > 10
-            - Must include: guardrails, safety nets, fall arrest systems
+            The checklist format must follow: [Category / Item / Yes (Compliant) & No (Non-compliant)].
+            Create only one item per category.
+            Keep sentence length short and consistent across items for clarity.
             
-            ### 3. Electrical Safety
-            - Mandatory for ALL construction sites
-            - Must include: GFCI installation, electrical equipment inspection
+            ## Mandatory Safety Categories:
             
-            ### 4. Structural Safety
-            - Required for: reinforced concrete, steel structures, major renovations
-            - Must include: temporary support systems, structural integrity checks
+            ### Category: Personal Protective Equipment (PPE)
+            Example: Use of safety helmet, safety belt, and safety shoes
+            Reference: Occupational Safety and Health Standards Article 34
             
-            ### 5. Fire Safety
-            - Required for: commercial use, residential buildings with >5 households
-            - Must include: fire extinguishers, evacuation routes, flammable material management
+            ### Category: Work at Height
+            Example: Fall prevention measures for work over 2m (guardrails, safety nets, fall arrest systems)
+            Reference: Occupational Safety and Health Standards Article 38
             
-            ### 6. Heavy Equipment Safety
-            - Required for: new construction, building area >500㎡
-            - Must include: crane inspections, equipment operator certification
+            ### Category: Electrical Safety
+            Example: Residual current device installed, no electrical defects
+            Reference: Occupational Safety and Health Standards Article 326
             
-            ### 7. Hazardous Material Management
-            - Required for: renovation/demolition of existing buildings, change of use
-            - Must include: asbestos surveys, lead paint testing, proper disposal
+            ### Category: Falling Objects Prevention
+            Example: Safety nets installed, materials secured against dropping
+            Reference: Occupational Safety and Health Standards Article 274
             
-            ### 8. Work Permit System
-            - Required for: welding work, confined spaces, high-risk operations
-            - Must include: hot work permits, confined space entry permits
+            ### Category: Temporary Structures
+            Example: Scaffolding and shoring properly fixed and stable
+            Reference: Occupational Safety and Health Standards Articles 206–209
+            
+            ### Category: Equipment Use
+            Example: Regular inspection records of cranes and aerial lifts
+            Reference: Construction Machinery Management Act, Occupational Safety and Health Standards
+            
+            ### Category: Safety Training
+            Example: Training provided for new employees and high-risk workers
+            Reference: Occupational Safety and Health Act Article 29
+            
+            ### Category: Work Permit
+            Example: Permits issued for welding, confined space, and other high-risk tasks
+            Reference: Occupational Safety and Health Standards Article 50
             
             ## Instructions:
             1. Analyze the provided building data
-            2. Select relevant safety categories based on: permit type, primary use, structure type, building scale, and project characteristics
-            3. Generate specific safety checklist items for the selected categories
-            4. Each checklist item must be practical and actionable
-            5. Include legal basis references where applicable (Korean safety regulations)
+            2. Generate exactly ONE checklist item for each of the 8 mandatory categories above
+            3. Each checklist item must be practical, actionable, and suitable for Yes/No evaluation
+            4. Keep descriptions short and consistent in length across all items
+            5. Adapt the examples above to match the specific building characteristics provided
             
             ## Input Data Format:
             - koreanAddress: %s
@@ -89,18 +100,19 @@ public class ClaudeAiPrompt {
             
             ## Required Response Format:
             Return ONLY a JSON array with no markdown formatting. Each item must have exactly these two string fields:
-            - title: Brief checklist item title
-            - description: Detailed explanation of what needs to be checked
+            - title: Brief checklist item title (corresponding to the category)
+            - description: Short, clear explanation suitable for Yes/No compliance check
             
             Example format:
             [
-             {
-               "title": "Hard Hat Inspection",
-               "description": "Verify all workers are wearing properly fitted hard hats that meet safety standards before entering the construction site"
-             }
+            {
+              "title": "Personal Protective Equipment Compliance",
+              "description": "All workers wearing required safety helmet, safety belt, and safety shoes"
+            }
             ]
             
             **Remember: Use ONLY English language in your response. No Korean text allowed.**
+            **Important: Generate exactly 8 items, one for each mandatory category listed above.**
             
             Now analyze the following building data and generate an appropriate safety checklist:
             
