@@ -9,7 +9,6 @@ import org.springframework.data.repository.query.Param;
 public interface AddressesRepository extends JpaRepository<Addresses, Long> {
 
   @Query("SELECT a FROM Addresses a WHERE " +
-      "(:keyword IS NULL OR :keyword = '') OR " +
       "(UPPER(a.englishLotAddress) LIKE UPPER(CONCAT('%', :keyword, '%')) OR " +
       "UPPER(a.englishStreetAddress) LIKE UPPER(CONCAT('%', :keyword, '%')))")
   List<Addresses> findByKeyword(@Param("keyword") String keyword);
