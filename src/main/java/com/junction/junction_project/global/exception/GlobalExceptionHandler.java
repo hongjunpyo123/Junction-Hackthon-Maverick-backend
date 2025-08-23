@@ -32,4 +32,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         .body(ResponseDTO.of(e.getErrorCode()));
   }
 
+  @ExceptionHandler(InvalidValueException.class)
+  public ResponseEntity<ResponseDTO> invalidValueException(InvalidValueException e) {
+    return ResponseEntity.status(e.getErrorCode().getHttpStatus())
+        .body(ResponseDTO.of(e.getErrorCode()));
+  }
+
 }
