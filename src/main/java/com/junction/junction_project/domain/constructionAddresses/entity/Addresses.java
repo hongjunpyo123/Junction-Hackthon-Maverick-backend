@@ -21,7 +21,8 @@ public class Addresses {
   private Long id;
 
   private String koreanAddress;
-  private String englishAddress;
+  private String englishLotAddress;
+  private String englishStreetAddress;
 
   @OneToOne(fetch = jakarta.persistence.FetchType.LAZY)
   @JoinColumn(name = "addresses_info_id")

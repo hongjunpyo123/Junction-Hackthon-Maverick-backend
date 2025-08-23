@@ -29,7 +29,8 @@ public class AddressesService {
       AddressesResponse response = new AddressesResponse();
       response.setAddressId(a.getId());
       response.setKoreanAddress(a.getKoreanAddress());
-      response.setEnglishAddress(a.getEnglishAddress());
+      response.setEnglishStreetAddress(response.getEnglishStreetAddress());
+      response.setEnglishLotAddress(response.getEnglishLotAddress());
       return response;
     }).toList();
   }
@@ -39,7 +40,8 @@ public class AddressesService {
     Addresses addresses = new Addresses();
     AddressesInfo addressesInfo = new AddressesInfo();
 
-    addresses.setEnglishAddress(request.getEnglishAddress());
+    addresses.setEnglishStreetAddress(request.getEnglishStreetAddress());
+    addresses.setEnglishLotAddress(request.getEnglishLotAddress());
     addresses.setKoreanAddress(request.getKoreanAddress());
 //    addressesRepository.save(addresses);
 

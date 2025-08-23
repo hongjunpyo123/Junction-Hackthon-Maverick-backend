@@ -14,7 +14,10 @@ public class AddressesRequest {
   private String koreanAddress;
 
   @NotNull(message = "한글 주소는 필수입니다.")
-  private String englishAddress;
+  private String englishLotAddress;
+
+  @NotNull(message = "한글 주소는 필수입니다.")
+  private String englishStreetAddress;
 
   @Schema(example = "신측")
   private String permitType; //허가구분
