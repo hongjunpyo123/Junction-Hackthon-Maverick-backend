@@ -165,7 +165,7 @@ public class GeminiAiPrompt {
                      - Do not use ``` or ```json in your response
             
             
-            """.formatted(safetyAssessmentRequest.getNumOfWorkers(), safetyAssessmentRequest.getAddressInfoList());
+            """.formatted(safetyAssessmentRequest.getNumOfWorkers(), safetyAssessmentRequest.getAddressInfoList().toString());
     }
 
     public static String GRAPH_ANALYZE(List<String> safetyAssessmentIssues, List<Long> riskScore) {

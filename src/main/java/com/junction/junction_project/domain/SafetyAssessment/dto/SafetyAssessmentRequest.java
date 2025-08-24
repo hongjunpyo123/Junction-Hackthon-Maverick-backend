@@ -4,10 +4,12 @@ import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class SafetyAssessmentRequest {
   private Long addressId;
   private Long numOfWorkers;
@@ -18,6 +20,7 @@ public class SafetyAssessmentRequest {
   @Getter
   @Setter
   @NoArgsConstructor
+  @ToString
   public static class AddressInfoDTO {
     private String title;
     private String description;

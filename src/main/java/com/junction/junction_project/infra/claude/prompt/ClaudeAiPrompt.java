@@ -135,14 +135,14 @@ public class ClaudeAiPrompt {
                      1. Number of workers: {≤10 / ≤30 / ≤50}
                        - Fewer workers = higher risk, apply larger deductions.
                 
-                     2. Safety checklist: [Category / Item / true or false]
+                     2. Safety checklist: [Category / Item / Boolean answer = true or false]
                        - true = compliant, no deduction
                        - false = non-compliant, apply deduction (critical items = higher penalty)
                 
                      [Scoring Rules]
                      - Base score: 100
                      - Worker count: ≤10 = -20, ≤30 = -10, ≤50 = -5
-                     - Each "false" response deducts points based on category weight
+                     - Each Boolean answer is value "false" response deducts points based on category weight
                      - Safety Score = 100 - total deductions
                      - Risk Level () = 100 - Safety Score
                 
@@ -166,7 +166,7 @@ public class ClaudeAiPrompt {
                      - Do not use ``` or ```json in your response
             
             
-            """.formatted(safetyAssessmentRequest.getNumOfWorkers(), safetyAssessmentRequest.getAddressInfoList());
+            """.formatted(safetyAssessmentRequest.getNumOfWorkers(), safetyAssessmentRequest.getAddressInfoList().toString());
     }
 
     public static String GRAPH_ANALYZE(List<String> safetyAssessmentIssues, List<Long> riskScore) {

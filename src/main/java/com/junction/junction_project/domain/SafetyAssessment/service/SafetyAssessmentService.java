@@ -42,6 +42,7 @@ public class SafetyAssessmentService {
 
     try {
       ObjectMapper mapper = new ObjectMapper();
+      log.info("요청 프롬프: {}", ClaudeAiPrompt.SAFETY_ASSESSMENT(safetyAssessmentRequest));
       String aiResponse = claudeAiClient.call(ClaudeAiPrompt.SAFETY_ASSESSMENT(safetyAssessmentRequest));
       log.info("Safety Assessment Response: {}", aiResponse);
       SafetyAiResponse safetyAiResponse = parseJsonToList(aiResponse);

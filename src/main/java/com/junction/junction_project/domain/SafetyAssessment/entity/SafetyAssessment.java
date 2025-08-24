@@ -3,6 +3,7 @@ package com.junction.junction_project.domain.SafetyAssessment.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import lombok.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,8 @@ public class SafetyAssessment {
   private Long safetyScore;
   private Long riskScore;
   private String englishAddress;
+
+  @Lob
   private String issues;
 
 }
