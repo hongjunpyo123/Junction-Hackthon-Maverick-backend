@@ -9,12 +9,12 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 
-@Tag(name = "그래프 관련 분석 호출 api 입니다.", description = "")
+@Tag(name = "그래프 관련 분석 및 안전, 위험도 점수 데이터를 조회할 수 있는 api 입니다.", description = "")
 public interface GraphApiDocumentation {
 
   @ApiResponse(
       responseCode = "200",
-      description = "일주일간의 안전 점수 데이터를 불러옵니다.",
+      description = "일주일간의 안전 점수, 위험도 점수 데이터를 불러옵니다.",
       content = @Content(
           mediaType = "application/json",
           schema = @Schema(implementation = ResponseDTO.class),
@@ -43,7 +43,7 @@ public interface GraphApiDocumentation {
       )
   )
   @Operation(summary = "일주일간의 안전 점수 데이터를 불러옵니다.", description = "")
-  public ResponseEntity<?> graphAnalyze();
+  ResponseEntity<?> graphAnalyze();
 
 
   @ApiResponse(
@@ -70,6 +70,6 @@ public interface GraphApiDocumentation {
       )
   )
   @Operation(summary = "그래프 추이 분석 api 입니다.", description = "")
-  public ResponseEntity<?> getWeeklyAnalysis();
+  ResponseEntity<?> getWeeklyAnalysis();
 
 }

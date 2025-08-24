@@ -2,6 +2,7 @@ package com.junction.junction_project.domain.graph.controller;
 
 import com.junction.junction_project.domain.SafetyAssessment.entity.SafetyAssessment;
 import com.junction.junction_project.domain.SafetyAssessment.repository.SafetyAssessmentRepository;
+import com.junction.junction_project.domain.graph.docs.GraphApiDocumentation;
 import com.junction.junction_project.domain.graph.dto.GraphAnalyzeAiParseDTO;
 import com.junction.junction_project.domain.graph.dto.GraphAnalyzeAiResponse;
 import com.junction.junction_project.domain.graph.dto.GraphAnalyzeResponse;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/graph")
-public class GraphController {
+public class GraphController implements GraphApiDocumentation {
 
 
   private final SafetyAssessmentRepository safetyAssessmentRepository;
