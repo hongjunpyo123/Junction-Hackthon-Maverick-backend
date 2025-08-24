@@ -1,13 +1,12 @@
-package com.junction.junction_project.infra.claude.prompt;
+package com.junction.junction_project.infra.gemini.prompt;
 
 import com.junction.junction_project.domain.SafetyAssessment.dto.SafetyAssessmentRequest;
 import com.junction.junction_project.domain.checklist.dto.AddressesWithInfoDTO;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.Getter;
 
 @Getter
-public class ClaudeAiPrompt {
+public class GeminiAiPrompt {
     public static String OCR_FORMMATING_PROMPT(String extractedText) {
 
         return """
@@ -172,25 +171,15 @@ public class ClaudeAiPrompt {
     public static String GRAPH_ANALYZE(List<String> safetyAssessmentIssues, List<Long> riskScore) {
 
         return """      
-               You are an AI safety analyst. Analyze the provided input data and summarize risk patterns and safety issues clearly. \s
-            
                     [Input Data] 
-                    Risk Scores: %s 
-                    Safety Issues: %s 
+                    Scores_data: %s 
+                    Issues_data: %s 
             
-                    Risk Scores 는 7일간의 건설 현상 위헙 점수야 
-                    Safety Issues 는 7일간의 발생 이슈를 모은 텍스트고 
-                    이걸 기반으로 분석 내용을 짧고 간결하게 3개의 문장으로 만들어서 반환해줘
-                    응답은 영어로 하는거야
-                    
-                    분석은 간결하게
-                    
-                    Risk Scores 증감 추이를 간단히 설명 / 위험도 변동 폭을 분석 / (Safety Issues 바탕으로) 주요 리스크 제시
-                    
-                   
-                    [Output Format]
-                    Provide your assessment in JSON format only: 
-           
+                    Scores 는 7일간의 건설 현상 위헙 점수야 
+                    Issues 는 7일간의 발생 이슈를 모은 텍스트고 
+                    이걸 기반으로 분석 내용을 짧고 간결하게 3개의 문장으로 만들어서 반환해
+                  
+                    [응답 형식] 
                     {
                       "content1": "",
                       "content2": "",

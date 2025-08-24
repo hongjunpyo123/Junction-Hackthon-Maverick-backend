@@ -9,6 +9,7 @@ import com.junction.junction_project.domain.graph.dto.GraphAnalyzeAiResponse;
 import com.junction.junction_project.domain.graph.dto.GraphAnalyzeResponse;
 import com.junction.junction_project.infra.claude.ClaudeAiClient;
 import com.junction.junction_project.infra.claude.prompt.ClaudeAiPrompt;
+import com.junction.junction_project.infra.gemini.GeminiClient;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,7 @@ public class GraphService {
 
 
   private final ClaudeAiClient claudeAiClient;
+  private final GeminiClient geminiClient;
   private final SafetyAssessmentRepository safetyAssessmentRepository;
 
   public GraphAnalyzeAiParseDTO graphAnalyze() {
@@ -33,7 +35,7 @@ public class GraphService {
         .map(SafetyAssessment::getRiskScore).toList();
 
     System.out.println("graphAnalyze input prompt = " + ClaudeAiPrompt.GRAPH_ANALYZE(safetyAssessmentIssues, riskScore));
-    String response = claudeAiClient.call(claudeAiClient.call(ClaudeAiPrompt.GRAPH_ANALYZE(safetyAssessmentIssues, riskScore)));
+    String response = claudeAiClient.call(ClaudeAiPrompt.GRAPH_ANALYZE(safetyAssessmentIssues, riskScore));
 
     log.info("AI response: {}", response);
 
